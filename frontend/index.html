@@ -1,0 +1,65 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#060a12"><meta name="description" content="ПОЛЮС — интерактивное проектирование устойчивой спутниковой связи в Арктике."><title>ПОЛЮС · Орбитальная лаборатория</title><link rel="stylesheet" href="css/mission-control.css"><link rel="icon" href="assets/favicon.svg"></head><body>
+<div class="app-shell"><header class="topbar"><button class="brand" id="brandHomeLink" aria-label="ПОЛЮС — главная"><span class="brand-symbol">◉</span><span>ПОЛЮС<small>ОРБИТАЛЬНАЯ ЛАБОРАТОРИЯ</small></span></button><nav class="page-nav-tabs" aria-label="Главная навигация"><button id="navTabDashboard" class="page-nav-btn active">Обзор миссии</button><button id="navTabSimulator" class="page-nav-btn">Орбитальная сцена</button></nav><div class="top-actions"><span id="simStatusBadge">Загрузка сценария</span><button id="soundToggleBtn" class="btn sound" title="Звуковые эффекты">Звук: выкл</button><button id="exportBtn" class="btn">Экспорт ↓</button></div></header>
+<section id="pageDashboard" class="app-page active"><div class="dashboard-container"><div class="dashboard-heading"><span class="eyebrow">КОСМОХАК / КЕЙС 02</span><button class="btn" id="pinVariantBtn">Зафиксировать вариант</button></div><div class="overview-grid"><div class="mission-intro"><span class="eyebrow">СЕВЕРНЫЙ МОРСКОЙ ПУТЬ</span><h1>На краю Земли.<br><em>В центре связи.</em></h1><p>Спроектируйте сеть над Арктикой.<br>Проверьте, как она переживёт отказ спутника.</p><button id="ctaGoToSimBtn" class="btn btn-primary cta">Исследовать орбиты <span>↗</span></button><div class="mission-facts"><span><b>03</b> орбитальные плоскости</span><span><b>03</b> наземных терминала</span></div></div><div class="overview-planet"><canvas id="overviewEarth" aria-label="Земля с видом на Арктику"></canvas><div class="planet-caption"><span>АРКТИЧЕСКИЙ СЕКТОР</span><b>65° — 72° N</b></div></div></div>
+<div class="dashboard-kpi-grid"><article class="kpi-card"><span class="kpi-label">Доступность · Урал-Север</span><strong id="kpiAvailability">—</strong><small>За период моделирования</small></article><article class="kpi-card"><span class="kpi-label">Средняя задержка</span><strong id="kpiLatency">—</strong><small>По рассчитанным маршрутам</small></article><article class="kpi-card"><span class="kpi-label">Активная очередь</span><strong id="kpiSatCount">—</strong><small>Аппаратов на орбитах</small></article><article class="kpi-card"><span class="kpi-label">Максимальный перерыв</span><strong id="kpiSelfHealing">—</strong><small>Урал-Север · за весь период</small></article></div>
+<div class="dashboard-charts-grid"><article class="chart-card"><div class="chart-header"><h2>Связь в течение суток</h2><span class="muted">Урал-Север</span></div><div class="chart-canvas-box"><canvas id="canvasDailyAvailability" aria-label="График доступности связи по результатам расчёта"></canvas></div></article><article class="chart-card"><div class="chart-header"><h2>Задержка по терминалам</h2><span class="muted">мс · меньше лучше</span></div><div class="chart-canvas-box"><canvas id="canvasLatency" aria-label="Средняя задержка для трёх терминалов"></canvas></div></article></div><footer class="dashboard-footer"><span>Измените орбиту. Отключите спутник. Сравните результат.</span><span id="comparisonResult" aria-live="polite">Расчётная модель · не телеметрия</span></footer></div></section>
+<section id="pageSimulator" class="app-page"><main class="simulator-layout"><aside class="control-panel left-panel"><div class="panel-heading"><span class="eyebrow">01 / КОНФИГУРАЦИЯ</span><h2>Архитектура сети</h2></div><div class="section-label">Группировка</div><div class="stage-switch"><button id="stageBtn1" class="btn">16 спутников</button><button id="stageBtn3" class="btn btn-primary">48 спутников</button></div><div class="sliders"><div class="live-slider-card"><label for="liveAltSlider">Высота орбиты<output id="liveAltVal">600 км</output></label><input class="live-slider-input" type="range" id="liveAltSlider" min="500" max="1200" step="25" value="600"><div class="range-ends"><span>500 км</span><span>1200 км</span></div></div><div class="live-slider-card"><label for="liveIncSlider">Наклонение<output id="liveIncVal">87 °</output></label><input class="live-slider-input" type="range" id="liveIncSlider" min="70" max="98" step="1" value="87"><div class="range-ends"><span>70 °</span><span>98 °</span></div></div><div class="live-slider-card"><label for="livePhaseSlider">Фазирование<output id="livePhaseVal">120 °</output></label><input class="live-slider-input" type="range" id="livePhaseSlider" min="0" max="360" step="0.5" value="120"><div class="range-ends"><span>0 °</span><span>360 °</span></div></div><div class="live-slider-card"><label for="liveRaanSlider">Разворот орбит<output id="liveRaanVal">60 °</output></label><input class="live-slider-input" type="range" id="liveRaanSlider" min="0" max="180" step="5" value="60"><div class="range-ends"><span>0 °</span><span>180 °</span></div></div></div><div id="liveAltSub" class="technical-note"></div><button id="openSettingsBtn" class="btn settings-btn">Параметры и сценарии <span>↗</span></button></aside>
+<div class="scene-column"><div class="scene-top"><div><span class="eyebrow">ОРБИТАЛЬНАЯ СЦЕНА</span><h2>Земля. Связь. Движение.</h2></div><div class="map-view-switcher"><button id="viewGlobeBtn" class="map-view-btn active">Глобус</button><button id="viewPolarBtn" class="map-view-btn">Радар</button><button id="viewFlatBtn" class="map-view-btn">Карта</button></div></div><div class="map-view-box"><canvas id="mapCanvas" aria-label="Интерактивная карта спутников. Перетаскивайте для вращения, используйте колесо для масштаба." tabindex="0"></canvas><div id="mapTooltip"></div><div class="scene-coordinate">ЗЕМЛЯ / LEO<span>ОРБИТАЛЬНАЯ МОДЕЛЬ</span></div><div class="scene-tools"><button class="btn" id="zoomIn" aria-label="Приблизить">+</button><button class="btn" id="zoomOut" aria-label="Отдалить">−</button><button id="resetGlobeBtn" class="btn" title="Исходный ракурс" aria-label="Сбросить ракурс">↺</button></div><div class="scene-hint">Вращайте · приближайте · выберите спутник</div><div class="scene-legend"><span><i></i>P1</span><span><i></i>P2</span><span><i></i>P3</span></div></div><div class="timeline-bar"><div class="timeline-left"><button id="playBtn" class="btn btn-primary">▶ Пуск</button><div id="timeReadout" class="time-clock">00:00:00</div></div><div class="timeline-center"><div id="timelineTrackContainer"><canvas id="ganttCanvas"></canvas></div><input type="range" id="timeSlider" aria-label="Время моделирования" min="0" max="86400" step="1" value="0"><div class="timeline-ticks"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div></div><select id="speedSelect" class="speed-select" aria-label="Скорость времени"><option value="1">1×</option><option value="60">60×</option><option value="120" selected>120×</option><option value="300">300×</option><option value="600">600×</option></select></div></div>
+<aside class="control-panel right-panel"><div class="panel-heading"><span class="eyebrow">02 / НАЗЕМНЫЙ СЕГМЕНТ</span><h2>Точки связи</h2></div><div class="ships"><button class="ship-selector-card active" id="shipCard-C65"><span class="ship-card-name">Урал-Север<small>65° N · 60° E</small></span><span id="badgeStatus-C65" class="ship-status-badge">—</span></button><button class="ship-selector-card " id="shipCard-C70"><span class="ship-card-name">Диксон<small>70° N · 90° E</small></span><span id="badgeStatus-C70" class="ship-status-badge">—</span></button><button class="ship-selector-card " id="shipCard-C72"><span class="ship-card-name">Тикси<small>72° N · 130° E</small></span><span id="badgeStatus-C72" class="ship-status-badge">—</span></button></div><div class="route-card"><span class="section-label">Текущий маршрут</span><span id="activeShipTitle">Урал-Север</span><strong id="activeShipStatusPill">Ожидание расчёта</strong><div id="humanStoryText">Загрузка модели…</div></div><div class="stress-test"><span class="eyebrow">ПРОВЕРКА УСТОЙЧИВОСТИ</span><h3>А если спутник откажет?</h3><button id="quickBreakSatBtn" class="btn btn-danger">Отключить спутник</button><button id="quickFixAllBtn" class="btn">Восстановить сеть</button></div><div class="panel-bottom"><button id="nextOutageBtn" class="text-btn">К следующему перерыву →</button><button id="resetTimeBtn" class="text-btn">С начала суток ↺</button></div></aside></main></section></div>    <div id="modalSettings" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <span>⚙️</span>
+                    <span>Параметры орбит и загрузка сценариев</span>
+                </div>
+                <button id="closeSettingsBtn" class="modal-close">✕</button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label class="control-label">Выбрать готовый файл сценария:</label>
+                    <select id="scenarioSelect" class="control-select"></select>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div>
+                        <label class="control-label">Очередь запуска (Launch Stage)</label>
+                        <select id="launchStageSelect" class="control-select">
+                            <option value="3">3 очередь (все 48 аппаратов)</option>
+                            <option value="2">2 очередь (до 32 аппаратов)</option>
+                            <option value="1">1 очередь (первые 16 аппаратов)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="control-label">Алгоритм маршрутизации</label>
+                        <select id="strategySelect" class="control-select">
+                            <option value="min_hops">Min Hops (BFS) — минимум ретрансляций</option>
+                            <option value="min_distance">Min Distance (Dijkstra) — миним. задержка</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="control-label">Углы ориентации плоскостей (RAAN и Phase):</label>
+                    <div id="planesConfigContainer"></div>
+                    <button id="applyPlanesBtn" class="btn" style="width:100%; margin-top:6px; justify-content:center;">
+                        🔄 Применить углы орбит
+                    </button>
+                </div>
+
+                <hr style="border:0; border-top:1px solid var(--border-color); margin:4px 0;">
+
+                <div>
+                    <label class="control-label">Загрузить свой JSON файл (схема cosmo-A-1.0):</label>
+                    <input type="file" id="scenarioFileInput" accept=".json" style="display:none;">
+                    <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="document.getElementById('scenarioFileInput').click()">
+                        📤 Загрузить файл задания (.json)
+                    </button>
+                    <div id="validatorStatusBox" style="font-size:11px; margin-top:6px;"></div>
+                    <ul id="validationErrorsList" style="list-style:none; font-size:11px; margin-top:4px;"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div id="toastContainer" class="toast-container"></div><script type="module" src="js/app.js"></script><script type="module" src="js/design.js"></script></body></html>
